@@ -1,0 +1,118 @@
+# ---------- 1.  Paths & storage ------------------------------------------------
+PATH_FOR_MEDICAL_CONDITIONS: "/net/mraid20/export/jafar/Sarah/csv_files/"
+RealDeepFolderPath: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder"
+DeepFolderPath: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/with_Pretrained"
+MEDICAL_FILE_PATH: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/nastya_medical_conditions_consolidated_combined_above1percent.csv"
+OUTPUT_PATH: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/predictions_Dec2024_rerun"
+OPTUNA_JOURNAL_PATH: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/predictions_Dec2024_rerun/optuna_journal_storage.log"    # replaces hard-coded JournalFileBackend path
+
+LOG_DIR: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/predictions_Dec2024_rerun/logs"   # LOG_FILE is timestamp-dependent → compute in code
+
+VOICE_PREDICTIONS_CSV: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/all_predictions_good_vs_technical_issues_Dec24.csv"
+VOICE_PROB_THRESHOLD: 0.5
+
+# ---------- 2.  Core run parameters -------------------------------------------
+SEED: 5
+NUM_THREAD: 1
+NUM_TRIALS: 10
+WORKERS_FACTOR: 3
+MODEL_TYPE: "lightgbm"      # "lightgbm" | "xgboost" | "logistic regression"
+N_SPLITS: 4
+BALANCE_CLASSES: true
+COMBINE_WITH_BASELINE: true
+GENDER_SPECIFIC: true
+DEBUG_MODE: false
+FORCE_NEW_STUDIES: false
+
+# ---------- 3.  Execution-phase toggles ---------------------------------------
+RUN_HPO_PHASE:   false
+RUN_CV_PHASE:    false
+RUN_TEST_PHASE:  true
+LOAD_HPO_RESULTS: true
+
+# ---------- 4.  Embedding catalogue -------------------------------------------
+EMBEDDING_CONFIGS:
+  embedding_mfcc:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/mfcc_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 13
+  embedding_EffNet:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/efficientnet_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 512
+  embedding_VoxCeleb:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/voxceleb_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 512
+  embedding_VoxCelebFintuned:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/VoxCeleb_finetuned_all_embeddings_5secs/"
+    n_ftrs: 512
+  embedding_wav2vec2Base:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/wav2vec2_base_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 768
+  embedding_wav2vec2Large:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/wav2vec2_large_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 1024
+  embedding_wav2vec2XLSRVanilla:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/wav2vec_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 1024
+  embedding_wav2vec2XLSRVFineTuned:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/finetuned_xlsr_hebrew_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 1024
+  embedding_wav2vec2HebrewPretrained:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/wav2vec2_Hebrew_pretrained_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 1024
+  embedding_wavLMBase:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/wavlm_base_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 768
+  embedding_wavLMLarge:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/wavlm_large_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 1024
+  embedding_wavLMSD:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/wavlm_sd_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 768
+  embedding_xVector:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/xvector_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 512
+  embedding_wav2vecEM:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/emotion_wav2vec_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 768
+  embedding_wavlmEM:
+    path: "/net/mraid20/export/genie/LabData/Analyses/DeepVoiceFolder/Dec24_rerun/emotion_wavlm_embeddings_5sec_Updated_Dec24_rerun/"
+    n_ftrs: 1024
+
+# ---------- 5.  Debug subsets --------------------------------------------------
+DEBUG_EMBEDDINGS: ["embedding_mfcc", "embedding_EffNet"]
+DEBUG_TARGETS: ["current_smoker", "Depression"]
+
+# ---------- 6.  Target definitions --------------------------------------------
+TARGET_NAMES_CALCULATED:
+  - "current_smoker"
+  - "past_smoker"
+  - "has_SA"
+  - "is_winter"
+
+
+CURATED_CONDITIONS:
+  - "Allergy"
+  - "Anemia"
+  - "Anxiety"
+  - "Asthma"
+  - "Chronic sinusitis"
+  - "COVID-19"
+  - "Depression"
+  - "Headache"
+  - "Hearing loss"
+  - "Hyperthyroidism"
+  - "Hypothyroidism"
+  - "Insomnia"
+  - "Migraine"
+  - "Obesity"
+  - "Oral aphthae"
+  - "Sleep Apnea"
+
+# ---------- 7.  Queue / cluster parameters ------------------------------------
+QUEUE_PARAMS:
+  jobname: "predict_voice"
+  _mem_def: "10G"
+  _trds_def: 1          # mirror NUM_THREAD
+  max_u: 650
+  q: ["himem7.q"]
+  _specific_nodes: "plink"
