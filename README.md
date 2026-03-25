@@ -1,8 +1,10 @@
-# Voice-Based Health Phenotype Prediction — Code Repository
+# HPP-Voice: A Large-Scale Evaluation of Speech Embeddings for Multi-Phenotypic Classification
 
 This repository contains the computational pipeline accompanying the manuscript:
 
-> **[Title]** — [Authors] — [Journal/bioRxiv link]
+> **HPP-Voice: A Large-Scale Evaluation of Speech Embeddings for Multi-Phenotypic Classification**
+> David Krongauz, Hido Pinto, Sarah Kohn, Yanir Marmor, Eran Segal
+> arXiv:2505.16490 — https://doi.org/10.48550/arXiv.2505.16490
 
 ---
 
@@ -140,11 +142,11 @@ The HPP-Voice dataset used in this study is not publicly available due to privac
 If you use this code, please cite:
 
 ```bibtex
-@article{[key],
-  title   = {[Title]},
-  author  = {[Authors]},
-  journal = {[Journal]},
-  year    = {[Year]},
-  doi     = {[DOI]}
+@article{krongauz2025hppvoice,
+  title   = {HPP-Voice: A Large-Scale Evaluation of Speech Embeddings for Multi-Phenotypic Classification},
+  author  = {Krongauz, David and Pinto, Hido and Kohn, Sarah and Marmor, Yanir and Segal, Eran},
+  journal = {arXiv preprint arXiv:2505.16490},
+  year    = {2025},
+  doi     = {10.48550/arXiv.2505.16490}
 }
 ```
